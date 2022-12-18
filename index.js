@@ -1,3 +1,5 @@
+const fs=require('fs')
+const { json } = require('body-parser')
 const express=require('express')
 const bodyParser= require('body-parser')
 var path=require('Path')
@@ -7,10 +9,10 @@ const session = require('express-session')
 const app=express()
 
 const router=require('./router')
-
 // middlewares
 //Load static assets
 
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/static',express.static(path.join(__dirname,'public')))
 app.use('/assets',express.static(path.join(__dirname,'public/assets')))
 app.use(session({
@@ -18,11 +20,9 @@ app.use(session({
     resave:false,
     saveUninitialized:true
 }))
+app.use("/route",router)
 
-const fs=require('fs')
-const { json } = require('body-parser')
 app.set('view engine','ejs')
-app.use(bodyParser.urlencoded({ extended: false }))
 app.get("/Quiz",(req,res)=>{
     fs.readFile("Quiz.json",'utf-8',(err,data)=>{
         if(!err)
