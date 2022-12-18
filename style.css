@@ -1,0 +1,18 @@
+body{
+    background-image: url('./assets/bg2.webp');   
+}
+.center-div{
+    padding-top: 20%;
+}
+.btn.btn-success{
+    top: 10px;
+}
+form{
+    padding: 0em 3em;
+}
+.text-center.center-div{
+    padding-top: 10%;
+}
+#login.title>span{
+    font-size: .8em;
+}
