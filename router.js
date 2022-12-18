@@ -9,8 +9,7 @@ const credential={
 router.post('/login',(req,res)=>{
     if(req.body.email==credential.email && req.body.password==credential.password){
         req.session.user=req.body.email
-        //res.redirect('/Quiz')
-        res.end('Login Successful')
+        res.redirect('/Quiz')
 
     }else{
             res.end("Invalid User name")
