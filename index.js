@@ -4,9 +4,21 @@ var path=require('Path')
 const {v4:uuidv4}=require('uuid')
 const session = require('express-session')
 
+const app=express()
+
 const router=require('./router')
 
-const app=express()
+// middlewares
+//Load static assets
+
+app.use('/static',express.static(path.join(__dirname,'public')))
+app.use('/assets',express.static(path.join(__dirname,'public/assets')))
+app.use(session({
+    secret:uuidv4(),
+    resave:false,
+    saveUninitialized:true
+}))
+
 const fs=require('fs')
 const { json } = require('body-parser')
 app.set('view engine','ejs')
@@ -65,19 +77,11 @@ app.post("/submit",(req,res)=>{
 })
 
 
-app.use("/route",router)
 // login page route
 app.get('/',(req,res)=>{
     res.render('login')
 })
-//Load static assets
-app.use('/static',express.static(path.join(__dirname,'public')))
-app.use('/assets',express.static(path.join(__dirname,'public/assets')))
-app.use(session({
-    secret:uuidv4(),
-    resave:false,
-    saveUninitialized:true
-}))
+
 app.listen(4500,()=>{
     console.log("Server is running")
 })
